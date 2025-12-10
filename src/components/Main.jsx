@@ -1,16 +1,30 @@
+import React from 'react';
+
 export default function Main() {
-    const ingredients = ["Chicken", "Oregano", "Tomatoes"]
 
-    const mapped = ingredients.map((ingredient) =>
+    /**
+     * Challenge: Update our app so that when the user enters a
+     * new ingredient and submits the form, it adds that new
+     * ingredient to our list!
+     */
+    const [newIngredients, setNewIngredients] = React.useState([])
+
+
+    const ingredientsListItems = newIngredients.map(ingredient => (
         <li key={ingredient}>{ingredient}</li>
-    )
+    ))
 
-    function handleSubmit (event)  {
+    function handleSubmit(event) {
+        /**
+         * Like before, don't worry about this FormData stuff yet.
+         * Just use the newIngredient below to help you finish the
+         * challenge.
+         */
         event.preventDefault()
         const formData = new FormData(event.currentTarget)
         const newIngredient = formData.get("ingredient")
-        ingredients.push(newIngredient)
-        console.log(ingredients)
+        setNewIngredients(prevIngredient => [...prevIngredient,  newIngredient])
+
     }
 
     return (
@@ -25,7 +39,7 @@ export default function Main() {
                 <button>Add ingredient</button>
             </form>
             <ul>
-                {mapped}
+                {ingredientsListItems}
             </ul>
         </main>
     )
